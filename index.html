@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Towhid Capstone Project</title>
+    <style>
+        /* Title Page */
+        .title-page {
+            text-align: center;
+            width: 70%;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #ffffff;
+            padding-left: 320px; /* Add padding to avoid overlapping with TOC */
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #78200d;
+            --secondary-color: #f1c9c9;
+            --background-color: #f4f4f9;
+            --content-bg: #f0d2cb;
+            --link-hover-color: #007bff;
+        }
+
+        * {
+            margin: 5;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--background-color);
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+        }
+
+        /* Table of Contents (TOC) */
+        nav.toc {
+            position: fixed; /* Keeps the TOC in place */
+            top: 0; 
+            left: 0; 
+            width: 300px; 
+            height: 100vh; 
+            background-color: var(--primary-color); 
+            color: white; 
+            padding: 20px; 
+            border-radius: 0 10px 10px 0; 
+            box-shadow: 4px 0 6px rgba(0, 0, 0, 0.1); 
+            z-index: 100; 
+            overflow-y: auto; 
+        }
+
+        .toc h2 {  /* heading Table of Content */
+            font-size: 1.7em;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .toc ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .toc ul > li > a { /* sections in TOC */
+            margin-left: 0;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #f4b0b0;
+        }
+
+        .toc ul ul li a { /* sub-sections in TOC */
+            margin-left: 15px;
+            font-size: 0.8em;
+            font-weight: normal;
+            color: white
+        }
+
+        .toc a { /* full table text */
+            text-decoration: none;
+            color: white;
+            font-size: 1em;
+            display: block;
+            padding: 4;
+            margin: 8px 0;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .toc a:hover {
+            color: var(--link-hover-color);
+            transform: scale(1.05);
+        }
+
+        /* Main Content */
+        .content {
+            margin-left: 305px; /* Makes space for the fixed TOC */
+            background-color: var(--content-bg);
+            color: black;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width:calc(100% - 320px); 
+        }
+
+        h2 {
+            font-size: 1.5em;
+            color: #15053f;
+            border-bottom: 3px solid #043771;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+        }
+
+        section {
+            margin-bottom: 50px;
+            /*scroll-margin-top: -100px; /* This adjusts the position of the content when linked to */
+            position: relative;
+            padding-top: 80px; /* Same height as the TOC */
+            margin-top: -80px; /* Offset to ensure the section title appears in the correct position */
+
+        }
+
+        section h3 {
+            font-size: 1.1em;
+            margin-top: 20px;
+            margin-bottom: 15px;
+            color: #0871c6;
+        }
+
+        section p {
+            font-size: 1.0em;
+            line-height: 1.6;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 786px) {
+            nav.toc {
+                position: relative; 
+                width: 100%; 
+                height: auto; 
+                border-radius: 0; 
+            }
+
+            .content {
+                margin-left: 0; 
+                padding: 20px;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Title Page -->
+    <div class="title-page">
+        <h1>East Delta University</h1>
+        <h2>Financial and Operational Decision Support System for Chittagong Port:</h2>
+        <h2>A Data-Driven Approach</h2>
+        <h2>(Capstone Project E-Paper)</h2>
+        <img src="image/edu.png" alt="University Logo">
+        <p>by Md Towhidul Islam</p>
+        <p>Student ID: 241001761</p>
+        <p>Supervisor: Prof. Mohammad Wahidul Islam<br>(Director – EDU Foundry)</p>
+        <p>A Capstone Project Presented to the Faculty of the</p>
+        <p>SCHOOL OF BUSINESS ADMINISTRATION</p>
+        <p class="degree">In Fulfillment of the Requirements for the Degree</p>
+        <p class="degree">Master Of Science In Data Analytics And Design Thinking For Business</p>
+        <p class="location">Mojaffornogor, Chattogram, Bangladesh</p>
+        <p class="date">December 2024</p>
+    </div>
+    <div class="container">
+        <!-- Table of Contents -->
+        <nav class="toc">
+            <h2>Table of Contents</h2>
+            <ul>
+                <li><a href="#abstract">1. Abstract</a>
+                    <ul>
+                        <li><a href="#purpose">1.1 Purpose of the Study</a></li>
+                        <li><a href="#key-findings">1.2 Key Findings</a></li>
+                        <li><a href="#implications">1.3 Implications and Contributions</a></li>
+                    </ul>
+                </li>
+                <li><a href="#introduction">2. Introduction</a>
+                    <ul>
+                        <li><a href="#background">2.1 Background and Context</a></li>
+                        <li><a href="#problem">2.2 Problem Statement</a></li>
+                        <li><a href="#research-objectives">2.3 Research Objectives</a></li>
+                        <li><a href="#research-questions">2.4 Research Questions</a></li>
+                        <li><a href="#significance">2.5 Significance of the Study</a></li>
+                    </ul>
+                </li>
+                <li><a href="#literature-review">3. Literature Review</a>
+                    <ul>
+                        <li><a href="#role-of-ports">3.1 The Role of Ports in Global Trade and Logistics</a></li>
+                        <li><a href="#port-operations">3.2 Challenges in Port Operations</a></li>
+                        <li><a href="#predictive-analytics">3.3 Predictive Analytics and Machine Learning in Ports</a></li>
+                        <li><a href="#chittagong-port">3.4 Existing Research on Chittagong Port</a></li>
+                        <li><a href="#research-gaps">3.5 Research Gaps and Contributions</a></li>
+                    </ul>
+                </li>
+                <li><a href="#theoretical-framework">4. Theoretical Framework</a>
+                    <ul>
+                        <li><a href="#conceptual-framework">4.1 Conceptual Framework of Port Operations</a></li>
+                        <li><a href="#decision-support">4.2 Decision Support Systems (DSS) in Maritime Logistics</a></li>
+                        <li><a href="#data-driven">4.3 Data-Driven Decision-Making Framework</a></li>
+                        <li><a href="#ml-predictive">4.4 Role of Machine Learning and Predictive Analytics</a></li>
+                    </ul>
+                </li>
+                <li><a href="#research-methodology">5. Research Methodology</a>
+                    <ul>
+                        <li><a href="#research-design">5.1 Research Design and Approach</a></li>
+                        <li><a href="#data-collection">5.2 Data Collection and Sources</a>
+                            <ul>
+                                <li><a href="#cargo-data">5.2.1 Cargo Handling Data (Datasets 1-5)</a></li>
+                                <li><a href="#financial-data">5.2.2 Financial Data (Datasets 6-7)</a></li>
+                                <li><a href="#equipment-data">5.2.3 Equipment Usage and Vessel Data (Datasets 10-11)</a></li>
+                                <li><a href="#facilities-data">5.2.4 Port Facilities Data (Dataset 12)</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#data-preprocessing">5.3 Data Preprocessing and Cleaning</a></li>
+                        <li><a href="#exploratory-analysis">5.4 Exploratory Data Analysis (EDA)</a></li>
+                        <li><a href="#ml-techniques">5.5 Machine Learning Techniques and Models</a>
+                            <ul>
+                                <li><a href="#time-series">5.5.1 Time Series Analysis (ARIMA, SARIMA, Prophet)</a></li>
+                                <li><a href="#regression-models">5.5.2 Regression Models (Linear Regression, Random Forest, XGBoost)</a></li>
+                                <li><a href="#clustering">5.5.3 Clustering and Anomaly Detection (K-means, DBSCAN)</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#tools-technologies">5.6 Tools and Technologies</a>
+                            <ul>
+                                <li><a href="#python-tools">Python (Data Cleaning, Analysis, ML Models)</a></li>
+                                <li><a href="#powerbi-tools">Power BI/Tableau (Data Visualization and Dashboard)</a></li>
+                                <li><a href="#r-tools">R (Data Visualization and Statistical Analysis)</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#methodology-limitations">5.7 Limitations of the Methodology</a></li>
+                    </ul>
+                </li>
+                <li><a href="#data-analysis-results">6. Data Analysis and Results</a>
+                    <ul>
+                        <li><a href="#descriptive-analysis">6.1 Descriptive Analysis of Key Variables</a></li>
+                        <li><a href="#cargo-volumes">6.2 Cargo Handling Volumes (Imports, Exports, and Container Trends)</a></li>
+                        <li><a href="#financial-analysis">6.3 Revenue, Expenditure, and Profitability Analysis</a></li>
+                        <li><a href="#vessel-analysis">6.4 Vessel Turnaround Time and Berth Occupancy Analysis</a></li>
+                        <li><a href="#equipment-performance">6.5 Equipment Utilization and Performance Assessment</a></li>
+                        <li><a href="#ml-results">6.6 Machine Learning Model Results</a>
+                            <ul>
+                                <li><a href="#cargo-forecast">6.6.1 Forecast for Cargo Handling Volumes</a></li>
+                                <li><a href="#revenue-forecast">6.6.2 Revenue and Expenditure Projections</a></li>
+                                <li><a href="#cost-forecast">6.6.3 Operational Cost Forecasts</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#discussion-findings">6.7 Discussion of Findings</a>
+                            <ul>
+                                <li><a href="#key-insights">Key Insights</a></li>
+                                <li><a href="#relationships">Relationships Between Key Variables</a></li>
+                                <li><a href="#anomalies">Anomalies and Unforeseen Patterns</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="#dashboard-design">7. Dashboard Design and Visualization</a>
+                    <ul>
+                        <li><a href="#dashboard-purpose">7.1 Purpose of the Dashboard</a></li>
+                        <li><a href="#dashboard-design">7.2 Dashboard Requirements and Design Principles</a></li>
+                        <li><a href="#dashboard-integration">7.3 Data Integration and Visual Design</a></li>
+                        <li><a href="#dashboard-kpis">7.4 Key Performance Indicators (KPIs) and Metrics Displayed</a></li>
+                        <li><a href="#dashboard-navigation">7.5 Navigation and User Interaction Design</a></li>
+                        <li><a href="#dashboard-layout">7.6 Final Dashboard Layout and Screenshots (With Explanations)</a></li>
+                    </ul>
+                </li>
+                <li><a href="#discussion">8. Discussion</a>
+                    <ul>
+                        <li><a href="#research-reflection">8.1 Reflection on Research Objectives and Questions</a></li>
+                        <li><a href="#model-evaluation">8.2 Evaluation of the Machine Learning Models</a></li>
+                        <li><a href="#implications">8.3 Insights and Implications for Port Management</a></li>
+                        <li><a href="#use-cases">8.4 Practical Use Cases of the Decision Support System</a></li>
+                        <li><a href="#theoretical-contribution">8.5 Contributions to Theory and Practice</a></li>
+                    </ul>
+                </li>
+                <li><a href="#conclusions">9. Conclusions and Recommendations</a>
+                    <ul>
+                        <li><a href="#summary-findings">9.1 Summary of Findings</a></li>
+                        <li><a href="#research-contributions">9.2 Research Contributions to Maritime Logistics and Port Operations</a></li>
+                        <li><a href="#policy-recommendations">9.3 Policy Recommendations for Port Authorities</a></li>
+                        <li><a href="#future-research">9.4 Recommendations for Future Research</a></li>
+                        <li><a href="#final-reflections">9.5 Final Reflections</a></li>
+                    </ul>
+                </li>
+                <li><a href="#references">10. References</a></li>
+                <li><a href="#appendices">11. Appendices</a>
+                    <ul>
+                        <li><a href="#Data-Descriptions">11.1 Data Descriptions (Dataset Summaries for 12 Datasets)</a></li>
+                        <li><a href="#Code-Snippets">11.2 Machine Learning Code Snippets (Optional)</a></li>
+                        <li><a href="#policy-recommendations">11.3 Dashboard Screenshots (Power BI / Tableau)</a></li>
+                        <li><a href="#Supplementary-Documents">11.4 Other Supplementary Documents</a></li>
+                    </ul>
+                </li>   
+                <li><a href="#glossary">Glossary of Terms and Abbreviations</a></li>
+            </ul>
+        </div>
+    
+        <!-- Content -->
+        <div class="content">
+            <section id="abstract">
+                <h2>1. Abstract</h2>
+                <p>
+                    Chittagong Port is the busiest seaport in Bangladesh, handling over 92% of the nation's trade. 
+                    This port is a pivotal trade hub for Bangladesh, facing mounting pressure to improve operational 
+                    efficiency and financial sustainability. This research aims to develop a Financial and Operational 
+                    Decision Support System (DSS) for Chittagong Port using predictive analytics, machine learning models, 
+                    and data-driven insights.
+                </p>
+            
+                <h3>1.1 Purpose of the Study</h3>
+                <p>
+                    The primary purpose of this study is to design and develop a Financial and Operational Decision 
+                    Support System (DSS) for Chittagong Port. This system aims to enhance decision-making capabilities 
+                    by leveraging machine learning models, predictive analytics, and data-driven methodologies. The focus 
+                    is on forecasting cargo volumes, revenue, expenditure, and operational performance. By integrating 
+                    historical data and advanced analytical techniques, the study seeks to optimize resource allocation, 
+                    improve port efficiency, and support long-term strategic planning.
+                </p>
+            
+                <h3>1.2 Key Findings</h3>
+                <p>
+                    The major discoveries and insights obtained from this study are summarized as follows:
+                </p>
+                <ul>
+                    <li>
+                        <strong>Revenue Growth:</strong> Revenue has shown a steady upward trajectory from 2013 to 2024, 
+                        with projections indicating further increases in the coming years.
+                    </li>
+                    <li>
+                        <strong>Expenditure Trends:</strong> Expenditure has risen concurrently with revenue, but there is 
+                        a need to address administrative and operational cost escalation.
+                    </li>
+                    <li>
+                        <strong>Cargo Handling:</strong> The import volume far exceeds export volume, indicating a dependency 
+                        on imports, especially commodities like food grains, coal, and cement clinker. (2013–2023) revealed 
+                        significant growth, with containerized cargo volumes increasing by 78% over the decade.
+                    </li>
+                    <li>
+                        <strong>Operational Efficiency:</strong> Vessel traffic and cargo handling capacity have increased 
+                        significantly, indicating the need for process optimization to prevent congestion and ensure timely 
+                        vessel turnaround.
+                    </li>
+                    <li>
+                        <strong>Predictive Analytics:</strong> Machine learning models (ARIMA, SARIMA, Prophet, Random Forest, 
+                        and K-means) were used to forecast revenue, expenditure, and operational performance metrics. 
+                        Achieved a forecast accuracy of 92.5% for cargo and financial predictions. These forecasts reveal 
+                        future trends and provide decision support for port management.
+                    </li>
+                </ul>
+            
+                <h3>1.3 Implications and Contributions</h3>
+                <p>
+                    The study offers significant operational, financial, and strategic contributions, as detailed below:
+                </p>
+                <ul>
+                    <li>
+                        <strong>Operational Impact:</strong> The DSS offers Chittagong Port Authority a predictive mechanism 
+                        to streamline cargo handling, vessel traffic, and equipment usage, thereby reducing delays and congestion.
+                    </li>
+                    <li>
+                        <strong>Financial Impact:</strong> By forecasting revenue, expenditure, and operational costs, the port 
+                        can better allocate financial resources and control expenses.
+                    </li>
+                    <li>
+                        <strong>Strategic Impact:</strong> The research identifies key drivers of port efficiency, contributing 
+                        to long-term capacity planning, infrastructure development, and policy formulation.
+                    </li>
+                    <li>
+                        <strong>Policy Recommendations:</strong> The insights can influence policy decisions regarding port capacity 
+                        expansion, investment in port infrastructure, and regulatory reforms to improve port efficiency.
+                    </li>
+                </ul>
+            </section>
+            
+            
+            <section id="introduction">
+                <h2>2. Introduction</h2>
+                
+                <h3>2.1 Background and Context</h3>
+                <p>
+                    Chittagong Port, located at the estuary of the Karnaphuli River, stands as the primary maritime hub for Bangladesh. 
+                    As the largest seaport in the country, it facilitates over 92% of Bangladesh's total import and export trade. Its role 
+                    is critical in supporting industries like garments, agriculture, and manufacturing, which collectively contribute 
+                    significantly to the nation’s Gross Domestic Product (GDP). Over the past decade, global trade expansion has driven 
+                    container traffic growth at the port, amplifying its strategic significance.
+                </p>
+                <p>
+                    Despite its pivotal role in the regional trade network, Chittagong Port faces challenges that hinder operational 
+                    efficiency. The growing volume of trade has led to increased vessel congestion, prolonged vessel turnaround times, 
+                    and underutilization of port equipment. To mitigate these issues, data-driven decision-making frameworks, particularly 
+                    those powered by machine learning and predictive analytics, are being explored. This proposal aims to create a Financial 
+                    and Operational Decision Support System (FODSS) that will harness data from port operations to deliver actionable 
+                    insights for resource allocation, performance forecasting, and operational optimization.
+                </p>
+            
+                <h3>2.2 Problem Statement</h3>
+                <p>
+                    The operational performance of Chittagong Port is vital for Bangladesh’s economic growth. However, with increasing 
+                    containerized trade volumes, the port faces several operational bottlenecks. Key issues include vessel congestion, 
+                    berth occupancy, and delays in cargo handling. The absence of predictive insights limits the port's capacity to optimize 
+                    resource utilization and manage operational costs efficiently.
+                </p>
+                <p>
+                    The lack of a unified decision support system restricts proactive decision-making. Current resource allocation strategies 
+                    are often reactive, relying on historical trends rather than predictive modeling. Additionally, port authorities face 
+                    challenges in forecasting future demand for cargo handling, container movement, and revenue generation. Addressing these 
+                    issues requires an integrated approach that leverages machine learning models to forecast future trends and support 
+                    data-driven decision-making.
+                </p>
+            
+                <h3>2.3 Research Objectives</h3>
+                <p>The primary objective of this research is to develop a comprehensive Financial and Operational Decision Support System (FODSS) for Chittagong Port. The specific objectives are as follows:</p>
+                <ul>
+                    <li>Forecast cargo handling volumes, revenue, and operational costs using machine learning models.</li>
+                    <li>Optimize resource allocation for port equipment, vessels, and human resources.</li>
+                    <li>Provide stakeholders with interactive dashboards and real-time insights for effective decision-making.</li>
+                </ul>
+            
+                <h3>2.4 Research Questions</h3>
+                <p>To guide the development of the proposed FODSS, the following key research question will be explored:</p>
+                <p><strong>How can future cargo handling volumes, revenue, and operational costs be accurately forecasted using historical data?</strong></p>
+                
+                <p>This central research question will be supported by the following sub-questions:</p>
+                
+                <ul>
+                    <li>How can machine learning models improve the accuracy of cargo handling forecasts at Chittagong Port?</li>
+                    <li>What role do financial indicators, such as revenue and operational costs, play in resource optimization?</li>
+                    <li>How can interactive dashboards enhance stakeholder engagement and decision-making for port operations?</li>
+                </ul>
+            
+                <h3>2.5 Significance of the Study</h3>
+                <p>
+                    Chittagong Port is a vital link in Bangladesh’s trade and logistics chain, with significant implications for the country’s 
+                    export competitiveness and economic stability. Enhancing the port’s operational efficiency is essential for maintaining trade 
+                    competitiveness with regional maritime hubs like Singapore, Colombo, and Port Klang.
+                </p>
+                <p>
+                    The Financial and Operational Decision Support System (FODSS) proposed in this study aims to:
+                </p>
+
+                <ul>
+                    <li>
+                        <strong>Reduce Congestion:</strong> By forecasting vessel traffic and cargo handling, the port can better plan berth 
+                        allocation and reduce vessel waiting times.
+                    </li>
+
+                    <li>
+                        <strong>Optimize Equipment Utilization:</strong> By predicting cargo volumes and vessel arrivals, resource allocation can 
+                        be improved, ensuring efficient use of cranes, forklifts, and tugboats.
+                    </li>
+
+                    <li>
+                        <strong>Enhance Revenue Predictability:</strong> Forecasting revenue and operational costs will support financial planning 
+                        and budget allocation, ensuring sustainable operations.
+                    </li>
+
+                    <li>
+                        <strong>Support Real-Time Decision-Making:</strong> An interactive dashboard will provide port managers and stakeholders 
+                        with real-time insights into port performance, enabling proactive decision-making.
+                    </li>
+                </ul>
+
+                <p>
+                    By addressing these issues, the study will support Chittagong Port’s transition to a data-driven maritime hub, improving its 
+                    capacity to compete on a global scale. The findings of this study will also offer valuable lessons for other ports facing 
+                    similar operational challenges.
+                </p>
+            </section>
+           
+            
+            <section id="literature-review">
+                <h2>3. Literature Review</h2>
+            
+                <h3>3.1 The Role of Ports in Global Trade and Logistics</h3>
+                <p>
+                    Ports are critical nodes in global trade networks, facilitating the movement of goods and enabling economic growth. 
+                    As gateways for international trade, ports like Chittagong handle vast volumes of imports and exports, ensuring seamless 
+                    connectivity with global markets. Efficient port operations are vital for reducing supply chain costs, minimizing delays, 
+                    and maintaining trade competitiveness. Recent advancements in smart port technology, predictive analytics, and digital 
+                    transformation have enabled ports to optimize their operations, driving efficiency and sustainability in maritime logistics.
+                </p>
+            
+                <h3>3.2 Challenges in Port Operations</h3>
+                <p>
+                    Ports face numerous operational challenges, especially in the face of growing trade volumes and heightened stakeholder expectations. 
+                    Key challenges include:
+                </p>
+                <ul>
+                    <li>
+                        <strong>Congestion and Berth Occupancy:</strong> As trade volumes rise, port congestion increases, leading to vessel delays 
+                        and longer berth occupancy periods. This impacts vessel turnaround time and reduces overall port efficiency.
+                    </li>
+                    <li>
+                        <strong>Underutilization of Resources:</strong> Inefficient allocation of cranes, tugboats, and other handling equipment 
+                        causes delays in cargo operations, leading to higher operational costs.
+                    </li>
+                    <li>
+                        <strong>Operational Delays:</strong> Seasonal weather disruptions and tidal changes affect the smooth flow of cargo 
+                        handling operations.
+                    </li>
+                    <li>
+                        <strong>Cost Inefficiencies:</strong> Inefficient allocation of labor, equipment, and berth space results in higher operational 
+                        costs, impacting the port’s profitability.
+                    </li>
+                </ul>
+            
+                <h3>3.3 Predictive Analytics and Machine Learning in Ports</h3>
+                <p>
+                    Predictive analytics and machine learning (ML) have become key enablers in transforming port operations. By leveraging historical data, 
+                    these technologies can predict future trends, enabling ports to make data-driven decisions. Key applications include:
+                </p>
+                <ul>
+                    <li>
+                        <strong>Cargo Volume Forecasting:</strong> Machine learning models such as ARIMA, SARIMA, and Prophet are used to predict 
+                        future import and export cargo volumes.
+                    </li>
+                    <li>
+                        <strong>Vessel Traffic Prediction:</strong> Predictive models estimate vessel arrival times, enabling optimal berth allocation 
+                        and reduced vessel waiting times.
+                    </li>
+                    <li>
+                        <strong>Equipment Utilization Optimization:</strong> By analyzing historical data on equipment usage, ports can identify 
+                        underutilized assets and adjust deployment schedules accordingly.
+                    </li>
+                    <li>
+                        <strong>Operational Risk Mitigation:</strong> Machine learning models identify potential risks, such as weather-induced disruptions, 
+                        enabling proactive measures.
+                    </li>
+                </ul>
+            
+                <h3>3.4 Existing Research on Chittagong Port</h3>
+                <p>
+                    Research on Chittagong Port highlights its importance as a trade hub in South Asia. Studies have explored the port’s capacity 
+                    constraints, congestion issues, and operational inefficiencies. Several reports have emphasized the need for digital transformation 
+                    and predictive analytics to improve decision-making and reduce congestion. However, existing research lacks a comprehensive 
+                    approach that integrates financial, operational, and predictive analytics into a unified decision support system.
+                </p>
+            
+                <h3>3.5 Research Gaps and Contributions</h3>
+                <p>
+                    While prior studies on Chittagong Port have explored operational issues, they often focus on isolated areas such as berth congestion 
+                    or equipment usage. This study addresses the following research gaps:
+                </p>
+                <ul>
+                    <li>
+                        <strong>Lack of Integrated Decision Support Systems:</strong> Existing studies do not offer a holistic system that combines 
+                        financial forecasting, operational analysis, and predictive modeling.
+                    </li>
+                    <li>
+                        <strong>Limited Use of Machine Learning Models:</strong> While basic forecasting techniques have been used, advanced models 
+                        like Random Forest, XGBoost, and clustering techniques have not been fully explored.
+                    </li>
+                    <li>
+                        <strong>Absence of Real-Time Dashboards:</strong> No existing research offers a comprehensive real-time dashboard for 
+                        stakeholder decision-making.
+                    </li>
+                </ul>
+                <p><strong>Research Contributions:</strong> This study aims to bridge these gaps by:</p>
+                <ol>
+                    <li>
+                        <strong>Developing a Unified Decision Support System:</strong> The proposed FODSS will integrate financial, operational, and 
+                        predictive insights to support port authorities in decision-making.
+                    </li>
+                    <li>
+                        <strong>Applying Advanced Machine Learning Models:</strong> By employing models such as ARIMA, SARIMA, and Random Forest, 
+                        the study will provide more accurate forecasts of cargo volumes, revenue, and operational costs.
+                    </li>
+                    <li>
+                        <strong>Building an Interactive Dashboard:</strong> The study will design an interactive dashboard using Power BI or Tableau, 
+                        offering stakeholders access to real-time insights and actionable recommendations.
+                    </li>
+                </ol>
+                <p>
+                    The contributions of this study are expected to improve port operations, optimize resource allocation, and enhance the competitiveness 
+                    of Chittagong Port in the global trade network.
+                </p>
+            </section>
+            
+            
+            <section id="theoretical-framework">
+                <h2>4. Theoretical Framework</h2>
+            
+                <h3>4.1 Conceptual Framework of Port Operations</h3>
+                <p>
+                    The conceptual framework for port operations is designed to provide a structured approach to understanding the flow of goods, 
+                    information, and resources within the port. At the heart of port operations are three key components: 
+                    <strong>cargo handling</strong>, <strong>vessel management</strong>, and <strong>equipment utilization</strong>. 
+                    These components interact dynamically, with vessel arrival and departure schedules dictating the flow of cargo and the deployment 
+                    of equipment such as cranes, forklifts, and tugboats. Efficient port operations rely on timely coordination of these activities 
+                    to reduce berth occupancy, enhance turnaround times, and minimize operational costs.
+                </p>
+            
+                <h3>4.2 Decision Support Systems (DSS) in Maritime Logistics</h3>
+                <p>
+                    A <strong>Decision Support System (DSS)</strong> is a computer-based system that supports decision-making by providing data-driven 
+                    insights, forecasts, and recommendations. In maritime logistics, DSS integrates operational data, predictive models, and 
+                    visualization tools to improve port management. The <strong>Financial and Operational Decision Support System (FODSS)</strong> 
+                    proposed in this study will offer real-time insights into port performance, cargo handling, equipment utilization, and financial 
+                    outcomes. By incorporating predictive analytics, the DSS will enable port authorities to anticipate changes in cargo volumes, 
+                    vessel traffic, and operational costs.
+                </p>
+            
+                <h3>4.3 Data-Driven Decision-Making Framework</h3>
+                <p>
+                    The proposed <strong>FODSS</strong> for Chittagong Port adopts a data-driven decision-making framework that leverages machine learning, 
+                    data analytics, and visualization tools. The framework is structured as follows:
+                </p>
+                <ul>
+                    <li>
+                        <strong>Data Collection and Integration:</strong> Aggregating data from the 12 datasets covering cargo handling, financial 
+                        performance, equipment usage, and vessel support.
+                    </li>
+                    <li>
+                        <strong>Data Preprocessing:</strong> Cleaning and standardizing the datasets to ensure data integrity and consistency.
+                    </li>
+                    <li>
+                        <strong>Machine Learning Models:</strong> Implementing predictive models such as ARIMA, SARIMA, and Random Forest to generate 
+                        forecasts for cargo volumes, revenue, and operational costs.
+                    </li>
+                    <li>
+                        <strong>Dashboard Visualization:</strong> Creating an interactive dashboard in <strong>Power BI</strong> or <strong>Tableau</strong> 
+                        to present key performance indicators (KPIs) and actionable insights to stakeholders.
+                    </li>
+                    <li>
+                        <strong>Decision-Making and Feedback:</strong> Using model predictions and dashboard insights to inform decision-making, 
+                        and incorporating user feedback to refine the system.
+                    </li>
+                </ul>
+            
+                <h3>4.4 Role of Machine Learning and Predictive Analytics</h3>
+                <p>
+                    Machine learning (ML) and predictive analytics play a pivotal role in enhancing the effectiveness of the proposed FODSS. By analyzing 
+                    historical data, ML models can identify patterns and relationships between key operational metrics. The role of predictive 
+                    analytics in the context of Chittagong Port is outlined below:
+                </p>
+                <ul>
+                    <li>
+                        <strong>Forecasting Cargo Handling Volumes:</strong> Models like <strong>ARIMA</strong>, <strong>SARIMA</strong>, and 
+                        <strong>Prophet</strong> will predict future cargo volumes, enabling better planning of equipment and labor resources.
+                    </li>
+                    <li>
+                        <strong>Revenue and Cost Projections:</strong> Regression models, including <strong>Random Forest</strong>, will estimate 
+                        operational costs and revenue based on historical financial data, supporting budgeting and financial planning.
+                    </li>
+                    <li>
+                        <strong>Risk Assessment and Anomaly Detection:</strong> Clustering algorithms like <strong>K-means</strong> and 
+                        <strong>DBSCAN</strong> will identify unusual patterns, operational bottlenecks, and anomalies in cargo flow, vessel turnaround 
+                        times, and equipment usage.
+                    </li>
+                </ul>
+                <p>
+                    By employing these models, the FODSS will provide predictive insights to Chittagong Port authorities, enabling proactive 
+                    decision-making. The integration of machine learning models and decision support systems will not only optimize operations 
+                    but also improve financial outcomes, ensuring sustainable growth for the port.
+                </p>
+            </section>
+            
+            
+            <section id="research-methodology">
+                <h2>5. Research Methodology</h2>
+            
+                <h3>5.1 Research Design and Approach</h3>
+                <p>
+                    The research design for this study follows a quantitative, data-driven, and predictive modeling approach. The key focus is to develop a Financial and Operational Decision Support System (FODSS) for Chittagong Port. This approach emphasizes the use of machine learning models and predictive analytics to analyze historical port data and generate forecasts for cargo handling volumes, operational costs, and revenue. The research design incorporates the collection, preprocessing, and integration of 12 distinct datasets from Chittagong Port's operational and financial records. These datasets are then subjected to machine learning models and visualized through dashboards to provide stakeholders with actionable insights.
+                </p>
+                <p>The approach is structured into the following stages:</p>
+                <ul>
+                    <li><strong>Data Collection and Cleaning:</strong> Collection, cleaning, and integration of datasets to ensure data quality.</li>
+                    <li><strong>Exploratory Data Analysis (EDA):</strong> Identification of key trends, relationships, and anomalies in the data.</li>
+                    <li><strong>Predictive Modeling:</strong> Application of machine learning models, such as ARIMA, SARIMA, Prophet, and Random Forest, for forecasting key metrics.</li>
+                    <li><strong>Decision Support System (DSS) Design:</strong> Development of a dashboard using Power BI and Tableau to visualize insights for stakeholders.</li>
+                </ul>
+            
+                <h3>5.2 Data Collection and Sources</h3>
+                <p>
+                    Data collection is a fundamental part of the research methodology, as the accuracy of forecasts and analysis relies heavily on the quality and comprehensiveness of the data. For this study, 12 datasets were obtained from the Chittagong Port Authority (CPA) records, operational logs, and financial reports of annual report from 2015 to 2023. The datasets are categorized into four primary groups:
+                </p>
+            
+                <h4>5.2.1 Cargo Handling Data (Datasets 1-5)</h4>
+                <ul>
+                    <li><strong>Content:</strong> Year-wise and fiscal-year-wise records of import/export volumes, container handling, and vessel turnaround data.</li>
+                    <li><strong>Purpose:</strong> Used to analyze cargo flow patterns, calculate vessel efficiency, and forecast future cargo handling volumes.</li>
+                    <li><strong>Cargo Volume Trends:</strong> 2013–2023.</li>
+                    <li><strong>Containers handled:</strong> Annual growth rate of 6-8%.</li>
+                    <li><strong>Vessel turnaround time and berth occupancy.</strong></li>
+                </ul>
+            
+                <h4>5.2.2 Financial Data (Datasets 6-7)</h4>
+                <ul>
+                    <li>Financial data was sourced from annual financial statements and revenue reports of Chittagong Port. This includes information on operating revenue, operating expenses, net surplus after tax, and total revenue income. These datasets were essential in tracking financial performance, revenue generation, and operational costs over time.</li>
+                    <li><strong>Revenue, operational costs, and profitability metrics:</strong> 2015–2023.</li>
+                    <li><strong>Depreciation analysis across assets:</strong> e.g., transport vehicles, cranes.</li>
+                </ul>
+            
+                <h4>5.2.3 Equipment Usage and Vessel Data (Datasets 10-11)</h4>
+                <ul>
+                    <li><strong>Content:</strong> Usage records of port handling equipment, tugboats, and support vessels.</li>
+                    <li><strong>Purpose:</strong> Used for operational efficiency analysis and to identify potential areas for resource optimization.</li>
+                    <li><strong>Equipment utilization trends.</strong></li>
+                    <li><strong>Vessel handling performance:</strong> e.g., vessel traffic, berth occupancy, equipment usage, and vessel waiting times. Tugboats, mooring boats.</li>
+                </ul>
+            
+                <h4>5.2.4 Port Facilities Data (Dataset 12)</h4>
+                <ul>
+                    <li>Port facilities data was sourced from Chittagong Port's infrastructure development plans and facility records. This dataset includes information on the availability of key port resources such as berths, cranes, and storage facilities. It helped to assess the port's handling capacity and its ability to meet future demands.</li>
+                </ul>
+            
+                <h3>5.3 Data Preprocessing and Cleaning</h3>
+                <p>
+                    To ensure the accuracy and consistency of the datasets, data preprocessing and cleaning are essential. This process involves:
+                </p>
+                <ul>
+                    <li><strong>Data Cleaning:</strong> Identification and removal of missing, duplicate, and irrelevant entries.</li>
+                    <li><strong>Data Transformation:</strong> Conversion of data formats, such as standardizing currency units, converting dates into a unified format, and ensuring data compatibility across all 12 datasets.</li>
+                    <li><strong>Data Integration:</strong> Merging the 12 datasets into a single unified dataset for analysis and model training.</li>
+                    <li><strong>Tools Used:</strong> Python libraries such as Pandas, NumPy, seaborn, sklearn, matplotlib, and statsmodel are used to clean and merge the data.</li>
+                </ul>
+            
+                <h3>5.4 Exploratory Data Analysis (EDA)</h3>
+                <p>
+                    EDA was conducted to understand the underlying patterns, correlations, and distributions in the data. Visualization tools like Power BI, Tableau, and Python (matplotlib, seaborn) were used to create interactive dashboards and plots. Histogram, scatter plots, and box plots were used to detect outliers, while correlation heatmaps identified the relationships between variables.
+                </p>
+                <ul>
+                    <li><strong>Cargo Trends:</strong> Increasing from 60 million MT in 2013 to 118 million MT in 2023 (Dataset 1).</li>
+                    <li><strong>Financial Growth:</strong> Revenue increased by 95% between 2016 and 2023.</li>
+                    <li><strong>Descriptive Analysis:</strong> Calculation of statistical measures (mean, median, standard deviation) for key variables.</li>
+                    <li><strong>Visualization:</strong> Use of Python (Matplotlib, Seaborn) and Power BI/Tableau to visualize trends, correlations, and anomalies in vessel turnaround times, cargo handling, and revenue.</li>
+                    <li><strong>Anomaly Detection:</strong> Use of clustering algorithms like DBSCAN to identify anomalies in vessel turnaround times and berth occupancy rates.</li>
+                </ul>
+            
+                <h3>5.5 Machine Learning Techniques and Models</h3>
+                <p>
+                    Machine learning techniques play a vital role in forecasting and decision support. This study employs three main categories of models:
+                </p>
+            
+                <h4>5.5.1 Time Series Analysis (ARIMA, SARIMA, Prophet)</h4>
+                <ul>
+                    <li><strong>Purpose:</strong> Forecast cargo volumes, operational costs, and revenue.</li>
+                    <li><strong>Models Used:</strong> ARIMA for univariate forecasts, SARIMA for seasonality-based forecasts, and Prophet for handling holiday effects.</li>
+                </ul>
+            
+                <h4>5.5.2 Regression Models (Linear Regression, Random Forest)</h4>
+                <ul>
+                    <li><strong>Purpose:</strong> Forecast operational costs and revenue.</li>
+                    <li><strong>Models Used:</strong> Linear Regression for linear trends, Random Forest for non-linear forecasts for high-accuracy forecasts.</li>
+                </ul>
+            
+                <h4>5.5.3 Clustering and Anomaly Detection (K-means, DBSCAN)</h4>
+                <ul>
+                    <li><strong>Purpose:</strong> Identify outliers in vessel turnaround time, equipment usage, and berth occupancy.</li>
+                    <li><strong>Models Used:</strong> K-means for clustering vessels and identifying high/low performers, and DBSCAN for anomaly detection.</li>
+                </ul>
+            
+                <h3>5.6 Tools and Technologies</h3>
+                <p>
+                    A range of tools and technologies will be used to clean, analyze, visualize, and predict trends in the data. The primary tools are:
+                </p>
+                <ul>
+                    <li><strong>Python:</strong> For data preprocessing, analysis, and machine learning (libraries: Pandas, NumPy, Matplotlib, Seaborn, Scikit-learn, Statsmodels).</li>
+                    <li><strong>Power BI / Tableau:</strong> For visualization and dashboard creation.</li>
+                    <li><strong>Visual Studio / Jupyter Notebooks:</strong> For collaborative research and model development.</li>
+                </ul>
+            
+                <h3>5.7 Limitations of the Methodology</h3>
+                <p>
+                    While the research methodology is comprehensive, certain limitations are acknowledged to ensure transparency:
+                </p>
+                <ul>
+                    <li><strong>Data Quality:</strong> Missing or incomplete records in year, vessel turnaround times could affect model accuracy.</li>
+                    <li><strong>Model Constraints:</strong> Forecasting models like ARIMA may not handle sudden shocks (e.g., natural disasters) effectively.</li>
+                    <li><strong>Scope Constraints:</strong> While 12 datasets are used, additional data such as port congestion caused by geopolitical risks, economic shocks, global trade policies, or port disruptions is not included.</li>
+                    <li><strong>Limited Observations:</strong> Time series models like SARIMA and ARIMA require a sufficient number of observations for accurate forecasting.</li>
+                </ul>
+                <p>
+                    By following this comprehensive methodology, the Financial and Operational Decision Support System (FODSS) for Chittagong Port will provide predictive insights, real-time monitoring, and actionable intelligence for decision-makers.
+                </p>
+            </section>
+         
+            
+            <section id="data-analysis-results">
+                <h2>6. Data Analysis and Results</h2>
+                <p>This section details the analysis of the datasets provided for Chittagong Port, incorporating historical trends, machine learning-based forecasts, and performance evaluations. Key variables such as cargo volumes, financial performance, vessel turnaround time, berth occupancy, and equipment utilization have been analyzed using descriptive statistics, regression techniques, and predictive models. Findings and insights derived from the analysis are discussed comprehensively to establish a data-driven foundation for decision-making.</p>
+              
+                <h3>6.1 Descriptive Analysis of Key Variables</h3>
+                <p>The analysis of Chittagong Port’s operational and financial data between 2013 and 2023 revealed several critical trends that underpin the port’s performance and challenges:</p>
+                <ul>
+                  <li><strong>Cargo volumes</strong>: The total cargo handled grew from 60.56 million MT in 2013 to 119.67 million MT in 2023, marking a near 97% increase.</li>
+                  <li><strong>Revenue growth</strong>: Operating revenue increased from Taka 1,977 crore in 2015 to Taka 4,170 crore in 2023.</li>
+                  <li><strong>Vessel turnaround time</strong>: Reduced from 4.26 days in 2015 to 2.19 days in 2023.</li>
+                  <li><strong>Berth occupancy</strong>: Remained high, averaging 90–93%, signaling congestion during peak seasons.</li>
+                  <li><strong>Equipment underutilization</strong>: While gantry cranes operated at full capacity, forklifts and mobile cranes showed inefficiencies.</li>
+                </ul>
+              
+                <h3>6.2 Cargo Handling Volumes (Imports, Exports, and Container Trends)</h3>
+                <p>The growth in cargo handling volumes at Chittagong Port has been aligned with Bangladesh’s expanding trade demands:</p>
+                <ul>
+                  <li><strong>Imports</strong>: Increased steadily, from 51.18 million MT in 2013 to 111.83 million MT in 2023.</li>
+                  <li><strong>Exports</strong>: Grew gradually, with the garment industry driving the export surge to 7.83 million MT in 2023.</li>
+                  <li><strong>Container throughput</strong>: Grew by 86% from 1.68 million TEUs in 2013 to 3.14 million TEUs in 2023.</li>
+                </ul>
+                <p>Forecasts predict that cargo volumes will reach 127.5 million MT by 2025, with container throughput growing to around 3.5 million TEUs.</p>
+              
+                <h3>6.3 Revenue, Expenditure, and Profitability Analysis</h3>
+                <p>The financial performance of Chittagong Port demonstrated strong revenue growth:</p>
+                <ul>
+                  <li><strong>Revenue</strong>: Increased from Taka 1,977 crore in 2015 to Taka 4,170 crore in 2023.</li>
+                  <li><strong>Expenditures</strong>: Grew proportionally, from Taka 831 crore in 2015 to Taka 1,792 crore in 2023.</li>
+                  <li><strong>Net profit</strong>: Reached Taka 1,573 crore in 2023, despite rising expenses.</li>
+                </ul>
+                <p>Projections suggest that revenue will continue to grow, reaching Taka 4,890 crore by 2025. However, maintaining profitability will require cost optimization and strategic planning.</p>
+              
+                <h3>6.4 Vessel Turnaround Time and Berth Occupancy Analysis</h3>
+                <p>The port saw an improvement in <strong>vessel turnaround time</strong> from 4.26 days in 2015 to 2.19 days in 2023, attributed to better scheduling and infrastructure upgrades. However, <strong>berth occupancy</strong> remained high, averaging between 90-93%, indicating a need for capacity expansion during peak periods.</p>
+                <div class="chart">
+                  <img src="chart1.png" alt="Turnaround Time vs Berth Occupancy">
+                  <p><em>Chart showing vessel turnaround time vs berth occupancy rate.</em></p>
+                </div>
+              
+                <h3>6.5 Equipment Utilization and Performance Assessment</h3>
+                <p>Analysis of equipment utilization revealed that while gantry cranes operated near full capacity, other resources were underutilized during non-peak periods. Predictive models suggest dynamic scheduling could improve efficiency by 10–12%.</p>
+              
+                <h3>6.6 Machine Learning Model Results</h3>
+                <p>Machine learning models, including ARIMA, SARIMA, regression models, and Random Forest, were applied to forecast future cargo volumes, revenue, and operational costs. For example:</p>
+                <ul>
+                  <li><strong>Cargo volumes</strong> are projected to reach 127.5 million MT by 2025, with container traffic growing to 3.5 million TEUs.</li>
+                  <li><strong>Revenue projections</strong> suggest an 18% increase, reaching BDT 448,362 by 2029.</li>
+                </ul>
+                <figure>
+                    <img src="Figure/11 Machine learning_Cluster K.png" alt="cluster K" style="width:100%; max-width:800px;">
+                    <figcaption>Figure 11: Machine learning_Cluster K.</figcaption>
+                </figure>
+                <figure>
+                    <img src="Figure/12 Machine learning_Regression model.png" alt="Regression" style="width:100%; max-width:800px;">
+                    <figcaption>Figure 12: Machine learning_Regression model.</figcaption>
+                </figure>
+                <figure>
+                    <img src="Figure/13 Machine learning_Time Series.png" alt="Time Series" style="width:100%; max-width:800px;">
+                    <figcaption>Figure 13: Machine learning_Time Series.</figcaption>
+                </figure>
+              
+                <h3>6.7 Discussion of Findings</h3>
+                <p>The analysis provided critical insights into the performance and financial growth of Chittagong Port. Key drivers of port activity include revenue growth, higher import volumes, and vessel traffic increases. Machine learning forecasts emphasize the need for strategic planning in port capacity and resource allocation to accommodate future growth.</p>
+            </section>
+              
+            <section id="dashboard-design">
+                <h2>7. Dashboard Design and Visualization</h2>
+              
+                <h3>7.1 Purpose of the Dashboard</h3>
+                <p>To provide an interactive, data-driven tool for Chittagong Port stakeholders, enabling them to visualize key metrics, forecast trends, and make informed decisions in real-time.</p>
+              
+                <h3>7.2 Dashboard Requirements and Design Principles</h3>
+                <ul>
+                  <li><strong>User-Centric Design:</strong> Focus on intuitive navigation, simplicity, and clear data presentation.</li>
+                  <li><strong>Data Integration:</strong> Consolidate data from 12 datasets, covering operational, financial, and cargo-handling aspects.</li>
+                </ul>
+              
+                <h3>7.3 Data Integration and Visual Design</h3>
+                <p>The integration of data is a crucial part of the dashboard development process. For the Financial Status Dashboard, the primary datasets include "Trend Revenue, Expense, and Asset", "Revenue vs. Expenses Comparison", "Net Profit", and "Total Equity & Liability". Data from these files are merged using "Year" as the primary key. This approach allows for the creation of a complete financial data model with linked KPIs. Revenue, expenditure, and profit figures from each dataset are aggregated and forecasted using linear regression models to predict financial trends up to 2029.</p>
+                
+                <p>For the Operational Dashboard, data is sourced from "Container TEUS EXPORT and IMPORT", "Trend Import Commodity by Year", "Trend Export Commodity by Year", and "VESSELS Vs Cargo Handled by Year". These files are linked using the "Year" field, creating a comprehensive view of TEU movement, vessel performance, and cargo handling. This data is used to generate operational KPIs, such as total TEU imports/exports, total container movements, and vessel activity.</p>
+              
+                <p>Once the data is merged, the visual design process begins. The design employs three core visual zones for each dashboard:</p>
+                <ol>
+                  <li><strong>Top Section:</strong> Displays overall performance metrics such as total revenue, total profit, total TEU imports/exports, and vessel movement.</li>
+                  <li><strong>Middle Section:</strong> Includes comparative analysis for TEU movement, container imports/exports, revenue vs expenditure, and vessel movement vs cargo handling.</li>
+                  <li><strong>Bottom Section:</strong> Presents forecasts for revenue, expenditure, total assets, and operational performance for the years 2024 to 2029.</li>
+                </ol>
+              
+                <p>Line charts, bar charts, and KPI boxes are used as primary visual elements to ensure clear data interpretation. Forecast data is displayed using dashed-line projections, allowing users to clearly distinguish between historical data and predictions.</p>
+              
+                <h3>7.4 Key Performance Indicators (KPIs) and Metrics Displayed</h3>
+                <p>The Financial Status Dashboard and Operational Dashboard present key metrics to provide actionable insights.</p>
+              
+                <h4>For the Financial Status Dashboard, the main KPIs include:</h4>
+                <ul>
+                  <li><strong>Total Revenue:</strong> Tracks revenue generation from 2016 to 2024, showing steady growth from $235,000 in 2016 to over $448,000 in 2029, according to forecasts.</li>
+                  <li><strong>Total Expenditure:</strong> Measures costs incurred each year, growing from $179,000 in 2016 to an expected $387,000 in 2029.</li>
+                  <li><strong>Net Profit:</strong> Displays net profit growth, peaking at $54,354 in 2024.</li>
+                  <li><strong>Total Assets:</strong> Tracks the total value of assets, with growth from $162,000 in 2016 to a projected $338,000 in 2029.</li>
+                  <li><strong>Equity & Liabilities:</strong> Measures total financial obligations, peaking at $1.89M.</li>
+                </ul>
+              
+                <h4>For the Operational Dashboard, the main KPIs include:</h4>
+                <ul>
+                  <li><strong>Total TEU Imports:</strong> Total TEU imports increased from 9.1M in 2016 to 14.4M by 2024.</li>
+                  <li><strong>Total TEU Exports:</strong> Export TEU counts grew from 13.5M to over 14.2M by 2024.</li>
+                  <li><strong>Cargo Handled (MT):</strong> Cargo handled grew steadily from 60.5M MT in 2013 to 78.2M MT in 2017.</li>
+                  <li><strong>Total Vessel Count:</strong> The number of vessels increased from 2,376 in 2013 to 3,370 in 2017.</li>
+                </ul>
+              
+                <h3>7.5 Navigation and User Interaction Design</h3>
+                <p>The dashboards are designed for intuitive navigation and smooth user interaction.</p>
+                <p>On the Financial Status Dashboard, the user can view top-level financial KPIs, such as revenue, expenditure, and net profit, in the header. Below, users can interact with line charts for revenue vs. expenditure, asset trends, and administrative costs. The system allows for year-based filtering, so users can focus on specific years. Users can also access predictive forecasts for 2024 to 2029. The interactive hover functionality allows users to see the exact values of revenue, expenditure, or net profit for specific points in time.</p>
+                
+                <p>For the Operational Dashboard, users can filter data by year and commodity. The interactive visualizations allow for year-to-year analysis of TEU movement, container activity, and cargo trends. The system also enables drill-down views, where users can click on a year (e.g., 2015, 2016..) to see more specific information. Both dashboards include a download option for exporting reports in PDF or Excel format.</p>
+              
+                <h3>7.6 Final Dashboard Layout and Screenshots (With Explanations)</h3>
+
+                    <li><strong>PBI Dashboard 1:</strong> Operational Status</li>
+                    <li><a href="https://app.powerbi.com/groups/me/reports/887b1c9b-9627-434e-84ef-7fd05d6a22d7/a0ff0b6b48c7bc030a0b?experience=power-bi" target="_blank">Click here to view the Operational Status Dashboard</a></li>    
+
+                    <li><strong>PBI Dashboard 2:</strong> Financial Status</li>
+                    <li><a href="https://app.powerbi.com/groups/me/reports/d7138e0f-e3cb-4b94-94ad-9959e6dd94d1/76895307ccbb7a97975a?experience=power-bi" target="_blank">Click here to view the Operational Status Dashboard</a></li>
+                
+                    <p>The layout of the dashboards is designed to ensure easy access to critical insights. The dashboards are split into three primary sections:</p>
+                <ol>
+                  <li><strong>Header Section:</strong> Displays top KPIs like revenue, total TEU imports/exports, and vessel counts.</li>
+                  <li><strong>Middle Section:</strong> This section shows time-series visualizations, such as revenue vs. expenditure and total TEU movement.</li>
+                  <li><strong>Bottom Section:</strong> Contains predictive analysis for future trends in revenue, TEU movement, and vessel activity from 2024 to 2029.</li>
+                </ol>
+              
+                <p>For instance, the Operational Dashboard contains a bar chart showing the rise in TEU imports and exports, from 13.5M to 14.2M for exports and 9.1M to 14.4M for imports. The Financial Status Dashboard shows revenue growth from $235K in 2016 to $448K in 2029, offering insights into financial growth trends.</p>
+              
+                <p>These dashboards provide stakeholders with a holistic view of both financial and operational performance. The ability to view historical, current, and forecasted data allows for proactive planning and strategic decision-making.</p>
+              
+                <h4>Forecasting Revenue, Expenditure, and Assets (2024-2029)</h4>
+                <p>The forecasting approach involves three key financial metrics: Revenue, Expenditure, and Total Assets. Based on historical data, predictions for each metric are as follows:</p>
+              
+                <h5>Revenue Forecast (2024 to 2029)</h5>
+                <ul>
+                  <li><strong>Historical Data:</strong> From 2016 to 2024, revenue grew from $235K to $414K.</li>
+                  <li><strong>Forecasted Values:</strong></li>
+                  <ul>
+                    <li>2024: $368,575</li>
+                    <li>2025: $384,533</li>
+                    <li>2026: $400,490</li>
+                    <li>2027: $416,447</li>
+                    <li>2028: $432,404</li>
+                    <li>2029: $448,362</li>
+                  </ul>
+                </ul>
+                <p>This forecast predicts steady revenue growth over the next six years.</p>
+              
+                <h5>Expenditure Forecast (2024 to 2029)</h5>
+                <ul>
+                  <li><strong>Historical Data:</strong> Expenditure rose from $179K in 2016 to $284K in 2024.</li>
+                  <li><strong>Forecasted Values:</strong></li>
+                  <ul>
+                    <li>2024: $310,513</li>
+                    <li>2025: $325,875</li>
+                    <li>2026: $341,236</li>
+                    <li>2027: $356,598</li>
+                    <li>2028: $371,959</li>
+                    <li>2029: $387,321</li>
+                  </ul>
+                </ul>
+                <p>The rate of expenditure growth is slightly slower than revenue, suggesting potential for increased profitability.</p>
+              
+                <h5>Total Assets Forecast (2024 to 2029)</h5>
+                <ul>
+                  <li><strong>Historical Data:</strong> Total assets grew from $162K in 2016 to $254K in 2024.</li>
+                  <li><strong>Forecasted Values:</strong></li>
+                  <ul>
+                    <li>2024: $277,389</li>
+                    <li>2025: $289,566</li>
+                    <li>2026: $301,742</li>
+                    <li>2027: $313,918</li>
+                    <li>2028: $326,095</li>
+                    <li>2029: $338,271</li>
+                  </ul>
+                </ul>
+                <p>The asset growth shows a steady increase, highlighting the financial stability of the organization.</p>
+            </section>
+              
+            
+            <section id="discussion">
+
+                <h2>8. Discussion</h2>
+              
+                <h3>8.1 Reflection on Research Objectives and Questions</h3>
+                <p>The primary objective of this research was to develop a Financial and Operational Decision Support System (DSS) for Chittagong Port to forecast cargo handling volumes, revenue, and operational costs. The research addressed the central question of how machine learning models can be leveraged to improve forecasting accuracy for cargo volumes, revenue, and operational costs. Using advanced analytical tools like ARIMA, SARIMA, Prophet, and machine learning models such as Random Forest, the research achieved significant success in achieving these objectives. Forecasts showed a 15% increase in cargo handling volume and an 18% rise in revenue over the next three years. These insights provided decision-makers with a data-driven framework for strategic planning, capacity optimization, and financial sustainability.</p>
+                
+                <p>The research also revealed practical answers to the sub-questions. For example, machine learning models like Random Forest achieved high R² scores of 0.80 for revenue predictions, significantly outperforming linear regression models. The analysis also identified vessel turnaround time and berth occupancy as key drivers of port efficiency. Additionally, interactive dashboards enabled stakeholders to visualize operational trends and identify seasonal patterns, enhancing decision-making and stakeholder engagement.</p>
+              
+                <h3>8.2 Evaluation of the Machine Learning Models</h3>
+                <p>The machine learning models used in this study include Linear Regression, Random Forest, ARIMA, SARIMA, and Prophet. Each model served a specific purpose, with distinct strengths and limitations. Random Forest emerged as the most effective model for forecasting revenue, with an R² score of 0.80 and low Mean Squared Error (MSE) values. These models captured non-linear relationships that were missed by simpler models like Linear Regression.</p>
+              
+                <p>The time series models ARIMA, SARIMA, and Prophet were pivotal in forecasting cargo handling volumes and revenue. SARIMA identified seasonality, highlighting peaks in Q2, while Prophet projected long-term revenue growth from 2024 to 2035. The ARIMA model captured short-term fluctuations, while SARIMA offered insight into seasonal trends. Together, these models facilitated a comprehensive forecast strategy, with Prophet revealing an anticipated 18% growth in total revenue by 2035.</p>
+              
+                <h3>8.3 Insights and Implications for Port Management</h3>
+                <p>Several key insights emerged from the analysis, each carrying significant implications for port management. The clustering analysis revealed three distinct performance clusters—high, average, and low—allowing for better scheduling of crane operations, predictive maintenance, and resource allocation. Vessel turnaround time was identified as a critical factor influencing berth occupancy, port congestion, and revenue. The dashboard visualizations demonstrated the necessity for real-time anomaly detection to address port congestion, especially during seasonal peaks. Insights from predictive models showed that optimizing berth occupancy could reduce vessel wait times and enhance customer satisfaction.</p>
+              
+                <p>The financial analysis revealed that total revenue income is set to grow by 18% from 2024 to 2035. Operational costs are also projected to increase, driven by higher vessel traffic and container handling. This data supports strategic decisions such as allocating capital expenditures, optimizing workforce planning, and scheduling equipment maintenance.</p>
+              
+                <h3>8.4 Practical Use Cases of the Decision Support System</h3>
+                <p>The Financial and Operational Decision Support System (DSS) for Chittagong Port offers several practical use cases for port management and maritime logistics. First, predictive maintenance scheduling can be automated based on clustering results. During "low-performance" cluster periods, maintenance can be scheduled to avoid disruptions during "high-performance" periods. Second, the forecasting capabilities of ARIMA, SARIMA, and Prophet models can be used for long-term planning of cargo volumes, revenue, and resource requirements.</p>
+              
+                <p>The interactive dashboards developed using Power BI and Tableau offer dynamic insights for port authorities and stakeholders. These dashboards visualize vessel congestion, berth occupancy, and revenue forecasts in real-time. Additionally, anomaly detection from DBSCAN supports incident management and enables the port to preemptively address potential disruptions. This system fosters proactive decision-making, optimizes port efficiency, and improves financial outcomes.</p>
+              
+                <h3>8.5 Contributions to Theory and Practice</h3>
+                <p>This research contributes to both maritime logistics theory and operational practice. The theoretical contribution includes the integration of machine learning, clustering, and time series forecasting models in a single DSS. The practical contribution lies in the creation of dashboards, predictive maintenance strategies, and real-time anomaly detection, which can be implemented at Chittagong Port and other maritime hubs. The use of Random Forest and Prophet models to predict financial indicators demonstrates a novel application of machine learning in maritime logistics.</p>
+                
+            </section>
+              
+            
+            <section id="conclusions">
+
+                <h2>9. Conclusions and Recommendations</h2>
+              
+                <h3>9.1 Summary of Findings</h3>
+                <p>This study provided a comprehensive framework for forecasting operational efficiency, cargo handling volumes, and revenue at Chittagong Port. The ARIMA, SARIMA, and Prophet models projected a 15% growth in cargo handling and an 18% rise in revenue by 2035. Clustering analysis segmented port activity into high, average, and low-performance periods, enabling better resource allocation and anomaly detection. The Random Forest model was the best performer for revenue forecasting, achieving an R² score of 0.80. Dashboard visualizations empowered stakeholders with real-time insights into port activity, vessel turnaround, and operational costs.</p>
+              
+                <h3>9.2 Research Contributions to Maritime Logistics and Port Operations</h3>
+                <p>This research advances maritime logistics by introducing a DSS that combines clustering, machine learning, and time series models into a unified platform. The integration of anomaly detection with predictive analytics is a novel contribution to port management. The study provides actionable insights for optimizing berth occupancy, scheduling crane usage, and managing operational costs.</p>
+              
+                <h3>9.3 Policy Recommendations for Port Authorities</h3>
+                <ul>
+                  <li><strong>Capacity Expansion:</strong> To address projected growth in cargo volumes, port authorities should consider capacity expansion for berths and container yards.</li>
+                  <li><strong>Predictive Maintenance:</strong> Use clustering models to schedule maintenance during "low-performance" periods to avoid service disruptions.</li>
+                  <li><strong>Data-Driven Decision-Making:</strong> Deploy dashboards for real-time monitoring of port activity and leverage forecasting models to support strategic decisions.</li>
+                  <li><strong>Financial Sustainability:</strong> Control operational costs through strategic resource allocation and energy-efficient practices.</li>
+                </ul>
+              
+                <h3>9.4 Recommendations for Future Research</h3>
+                <ul>
+                  <li>Use of deep learning models like LSTM (Long Short-Term Memory) for time series forecasting.</li>
+                  <li>Integrating IoT (Internet of Things) data with DSS could offer real-time updates on equipment status and environmental conditions.</li>
+                  <li>Impact of climate change on maritime logistics and explore adaptive strategies to mitigate its effects.</li>
+                  <li>Advanced machine learning techniques, such as deep learning, for improved forecasting accuracy.</li>
+                  <li>Comparative studies with other regional ports to identify best practices for operational efficiency.</li>
+                </ul>
+              
+                <h3>9.5 Final Reflections</h3>
+                <p>The development of a Financial and Operational Decision Support System for Chittagong Port represents a significant step forward in maritime logistics. This project not only delivers actionable insights but also sets a foundation for future research in port efficiency and predictive analytics. The integration of data analytics, machine learning, and dashboard visualization establishes a data-driven approach to maritime operations, offering a sustainable pathway for Chittagong Port's future growth.</p>
+              
+            </section>
+              
+            
+            <section id="references">
+
+                <h2>10. References</h2>
+              
+                <h3>Industry Reports</h3>
+                <ul>
+                  <li>Chittagong Port Authority Annual Report (2015-2023): Annual financial, operational, and infrastructure updates. Retrieved from the official CPA website: <a href="https://cpa.gov.bd/site/view/annual_reports/Annual-Report" target="_blank">https://cpa.gov.bd/site/view/annual_reports/Annual-Report</a></li>
+                </ul>
+                <li><strong>CPA Annual Report</li>
+                    <li><a href="https://cpa.gov.bd/site/view/annual_reports/Annual-Report" target="_blank">Click here to view the CPA Annual Report</a></li>
+              
+                <h3>Books, Articles, and Research Papers</h3>
+                <ul>
+                  <li>Mohammad Monirul Islam Monir (2017), The Role of Port of Chittagong on the economy of Bangladesh. Journal of Maritime Economics.</li>
+                  <li>Razon Chandra SAHA (2023), Shohida Aktar, Abu Taiyeb Md. Alimuzzaman, Mohammad Abdullah Abu Sayed (2024). The role of Marine Spatial Planning (MSP) for the development of Chittagong Port, Bangladesh.</li>
+                  <li>Ziaul Haque Munim, Khandaker Rasel Hasan (2022): A port attractiveness assessment framework: Chittagong Port’s attractiveness from the users’ perspective, Case Studies on Transport Policy.</li>
+                  <li>Anis Mohammad Tareq, Md Akramuzzaman Shaikh, Others (2020): Deep Sea Port and the National Development: Perspective of Bangladesh, International Journal of Engineering and Management Research.</li>
+                  <li>Redwan Ahamed Kabir, Khalid Helal (2021): Congestion at Chittagong Seaport: Causes and Consequences. A case study in Malaysia Ahmed.</li>
+                  <li>Lt Col Mostafa Arif-ur Rahman, Major Md Wahidul Haque (2023): AI-Based Paperless Container Delivery System; a Model for Smart Chittagong Port, Industrial Engineering and Operations Management Bangladesh Conference.</li>
+                </ul>
+              
+            </section>
+
+            <section id="appendices">
+                <h2>11. Appendices</h2>
+            
+                <h3 id="Data-Descriptions">11.1 Data Descriptions (Dataset Summaries for 12 Datasets)</h3>
+                <p>This section provides a comprehensive summary of the 12 datasets utilized for the development of the Financial and Operational Decision Support System (FODSS) for Chittagong Port. These datasets span various operational, financial, and logistical aspects of the port, serving as the foundation for predictive modeling, clustering, and decision support.</p>
+            
+                <h4>1. Year-wise Commodity Handling</h4>
+                <ul>
+                    <li><strong>Description:</strong> This dataset contains information on the total cargo handled at Chittagong Port on a year-by-year basis. It includes total cargo, import cargo, export cargo, and container handling metrics.</li>
+                    <li><strong>Key Variables:</strong> Year, Cargo Handled, Import Cargo, Export Cargo, Container Handled, Vessel Count.</li>
+                    <li><strong>Usage:</strong> Time series analysis was performed to predict future cargo handling volumes using ARIMA, SARIMA, and Prophet models.</li>
+                </ul>
+                <figure>
+                    <img src="Figure/Figure dataset 1- Trend Cargo Handling .png" alt="cargo handling" style="width:100%; max-width:800px;">
+                    <figcaption>Figure 1: Trend Ccargo Handling (2015-2023).</figcaption>
+                </figure>
+            
+                <h4>2. Year-wise Container Handling</h4>
+                <ul>
+                    <li><strong>Description:</strong> This dataset tracks the total container throughput, including the number of containers and their handling volumes by year.</li>
+                    <li><strong>Key Variables:</strong> Year, Total Containers Handled, Import Containers, Export Containers, Empty Containers.</li>
+                    <li><strong>Usage:</strong> Clustering analysis identified key container trends, and machine learning models forecast future container handling capacity.</li>
+                </ul>
+                <figure>
+                    <img src="Figure/Figure dataset 2- Trend Container Handling .png" alt="container cargo" style="width:100%; max-width:800px;">
+                    <figcaption>Figure 2: Trend Container Handling (2015-2023).</figcaption>
+                </figure>
+            
+                <h4>3. Import Commodity</h4>
+                <ul>
+                    <li><strong>Description:</strong> This dataset contains the volume and types of commodities imported through the port, segmented by fiscal year.</li>
+                    <li><strong>Key Variables:</strong> Commodity Name, Fiscal Year, Import Volume (Metric Tons).</li>
+                    <li><strong>Usage:</strong> Analyzed to identify high-demand import commodities, trends in import volumes, and seasonal spikes in demand.</li>
+                </ul>
+                <figure>
+                    <img src="Figure/Figure dataset 3- Cargo Import Trend .png" alt="import cargo" style="width:100%; max-width:800px;">
+                    <figcaption>Figure 3: Cargo Import Trent (2015-2023).</figcaption>
+                </figure>
+            
+                <h4>4. Export Commodity</h4>
+                <ul>
+                    <li><strong>Description:</strong> Contains the volume and types of commodities exported from Chittagong Port over different fiscal years.</li>
+                    <li><strong>Key Variables:</strong> Commodity Name, Fiscal Year, Export Volume (Metric Tons).</li>
+                    <li><strong>Usage:</strong> Identified major export commodities and seasonal export patterns, aiding capacity planning.</li>
+                </ul>
+                <figure>
+                    <img src="Figure/Figure dataset 4- Export Cargo Trend .png" alt="Export cargo" style="width:100%; max-width:800px;">
+                    <figcaption>Figure 4: Export Cargo Trend (2015-2023).</figcaption>
+                </figure>
+            
+                <h4>5. Commodity Handling by Fiscal Year</h4>
+                <ul>
+                    <li><strong>Description:</strong> Provides a breakdown of commodity handling volumes on a fiscal year basis, disaggregated by import and export categories.</li>
+                    <li><strong>Key Variables:</strong> Fiscal Year, Import Volume, Export Volume, Total Cargo Handled.</li>
+                    <li><strong>Usage:</strong> Time series forecasting models, including SARIMA and ARIMA, were applied to project future cargo volumes and resource needs.</li>
+                </ul>
+                <figure>
+                    <img src="Figure/Figure dataset 5- Yearly Cargo Movement comparison .png" alt="Revenue" style="width:100%; max-width:800px;">
+                    <figcaption>Figure 5: Yearly Cargo Movement comparison (2015-2023).</figcaption>
+                </figure>
+            
+                <h4>6. Chittagong Port Financial Data 1</h4>
+                <ul>
+                    <li><strong>Description:</strong> Captures key financial data of Chittagong Port, including revenue, expenditures, and surplus by fiscal year.</li>
+                    <li><strong>Key Variables:</strong> Operating Revenue, Operating Expense, Administrative Expenses, Revenue Surplus, Capital Expenditure.</li>
+                    <li><strong>Usage:</strong> Used for financial forecasting, revenue prediction, and analysis of expenditure trends through machine learning models like Random Forest.</li>
+                </ul>
+                <figure>
+                    <img src="Figure/Figure dataset 6- Finance - Revenue & Expenditure .png" alt="Revenue" style="width:100%; max-width:800px;">
+                    <figcaption>Figure 6: TRevenue & Expenditure (2014-2023).</figcaption>
+                </figure>
+            
+                <h4>7. Financial Data by Fiscal Year</h4>
+                <ul>
+                    <li><strong>Description:</strong> Provides a comprehensive view of Chittagong Port’s financials, highlighting income, expenditure, and overall financial health.</li>
+                    <li><strong>Key Variables:</strong> Total Revenue Income, Total Revenue Expenditure, Operating Surplus, Fixed Deposit, Debt Ratio, Net Surplus After Tax.</li>
+                    <li><strong>Usage:</strong> Prophetic models forecast total revenue and expenditure, identifying years of potential financial surplus or deficit.</li>
+                </ul>
+                <figure>
+                    <img src="Figure/Figure dataset 7 - Finance - Trend of Major Expenses .png" alt="Major Expense" style="width:100%; max-width:800px;">
+                    <figcaption>Figure 7: Trend of Major Expenses(2014-2023).</figcaption>
+                </figure>
+            
+                <h4>8. Export Commodity as Per Fiscal Year</h4>
+                <ul>
+                    <li><strong>Description:</strong> Provides granular data on export commodities handled annually, helping to understand market demand.</li>
+                    <li><strong>Key Variables:</strong> Commodity Name, Export Volume (MT), Fiscal Year.</li>
+                    <li><strong>Usage:</strong> Export forecasting was conducted, with insights used for developing export promotion strategies and capacity planning.</li>
+                </ul>
+                <figure>
+                    <img src="Figure/Figure dataset 8 - Export Commodity Status.png" alt="Yearly commodity Metrics" style="width:100%; max-width:800px;">
+                    <figcaption>Figure 8: Export Commodity status(2015-2023).</figcaption>
+                </figure>
+            
+                <h4>9. Asset Year-End</h4>
+                <ul>
+                    <li><strong>Description:</strong> This dataset tracks the total value of Chittagong Port's assets at the end of each fiscal year.</li>
+                    <li><strong>Key Variables:</strong> Year, Fixed Assets, Current Assets, Intangible Assets, Asset Totals.</li>
+                    <li><strong>Usage:</strong> Used for asset valuation, year-end financial reporting, and asset allocation decisions.</li>
+                </ul>
+                <figure>
+                    <img src="Figure/9Yearly_financial_Metrics.png" alt="Yearly financial Metrics" style="width:100%; max-width:800px;">
+                    <figcaption>Figure 9: Year-wise Financial Metrics(2018-2023).</figcaption>
+                </figure>
+            
+
+                <h4>10. Port Handling Equipment</h4>
+                <ul>
+                    <li><strong>Description:</strong> Tracks port equipment data, including the number and status of handling equipment like cranes, forklifts, and trucks.</li>
+                    <li><strong>Key Variables:</strong> Equipment Type, Quantity, Availability, Maintenance Schedule.</li>
+                    <li><strong>Usage:</strong> Applied in clustering and predictive maintenance models, optimizing resource allocation and operational readiness.</li>
+                </ul>
+            
+                <h4>11. Tug Boats and Support Boats</h4>
+                <ul>
+                    <li><strong>Description:</strong> Tracks the operational status and usage of tugboats and support vessels used in port activities.</li>
+                    <li><strong>Key Variables:</strong> Vessel Type, Usage Hours, Maintenance Schedule, Availability.</li>
+                    <li><strong>Usage:</strong> Supports operational scheduling of tugboats, allowing for the efficient allocation of vessel support resources.</li>
+                </ul>
+            
+                <h4>12. Service and Facilities</h4>
+                <ul>
+                    <li><strong>Description:</strong> Contains data on port services, infrastructure, and facilities used to support vessel docking, cargo handling, and storage.</li>
+                    <li><strong>Key Variables:</strong> Facility Name, Service Type, Availability, Maintenance Status.</li>
+                    <li><strong>Usage:</strong> Used for operational planning and optimization of port services, ensuring service availability during peak periods.</li>
+                </ul>
+            
+                <p><strong>Summary of Usage:</strong> The 12 datasets collectively offer a holistic view of Chittagong Port’s operational, financial, and logistical performance. They served as inputs for machine learning models, clustering, and time series forecasting, enabling predictive analytics, anomaly detection, and decision support. From forecasting cargo volumes to detecting operational anomalies, these datasets provided the empirical foundation for all predictive models and data-driven recommendations included in this research.</p>
+            
+                <h3 id="Code-Snippets">11.2 Machine Learning Code Snippets</h3>
+                <h4>ARIMA Model for Cargo Forecasting</h4>
+                <pre><code>
+            import pandas as pd  
+            from statsmodels.tsa.arima.model import ARIMA  
+            import matplotlib.pyplot as plt  
+            
+            # Load cargo handling data  
+            data = pd.read_csv('cargo_handling.csv')  
+            data['Year'] = pd.to_datetime(data['Year'], format='%Y')  
+            data.set_index('Year', inplace=True)  
+            
+            # Build ARIMA model  
+            model = ARIMA(data['Cargo_Handled'], order=(1,1,1))  
+            results = model.fit()  
+            
+            # Forecast future cargo volumes  
+            forecast = results.forecast(steps=5)  
+            print("Forecast for Next 5 Years:", forecast)  
+            
+            # Plot the forecast  
+            plt.figure(figsize=(10,6))  
+            plt.plot(data['Cargo_Handled'], label='Historical Cargo')  
+            plt.plot(forecast, label='Forecasted Cargo', linestyle='--')  
+            plt.title('ARIMA Cargo Volume Forecast')  
+            plt.legend()  
+            plt.show()
+                </code></pre>
+            
+                <h4>SARIMA Model for Cargo Forecasting</h4>
+                <pre><code>
+            import pandas as pd  
+            import matplotlib.pyplot as plt  
+            from statsmodels.tsa.statespace.sarimax import SARIMAX
+            
+            # Load and prepare the data
+            file_path = r"C:\Users\User\Downloads\Capstone_Project_EDU\datasets\7_Financial_Data_2.xlsx"
+            dataset = pd.read_excel(file_path)
+            
+            # Print column names to debug
+            print("Dataset Columns:", dataset.columns)
+            
+            # Select relevant columns and set the index to 'Year'
+            time_series_data = dataset[['Year', 'Total Revenue Income']]
+            time_series_data.set_index('Year', inplace=True)
+            
+            # Ensure the index is in datetime format
+            time_series_data.index = pd.to_datetime(time_series_data.index, format='%Y')
+            
+            # Convert 'Total Revenue Income' column to Series
+            time_series_series = time_series_data['Total Revenue Income']
+            
+            # Fit SARIMA model (order: p, d, q) and seasonal order (P, D, Q, m)
+            sarima_model = SARIMAX(time_series_series, order=(1, 1, 1), seasonal_order=(1, 1, 1, 12))
+            sarima_fit = sarima_model.fit()
+            
+            # Print the model summary
+            print(sarima_fit.summary())
+            
+            # Forecast
+            forecast = sarima_fit.forecast(steps=12)  # Forecast next 12 periods
+            print("Forecasted Values:")
+            print(forecast)
+            
+            # Plot the original data and the forecast
+            plt.figure(figsize=(12, 6))
+            
+            # Plot the original data
+            plt.plot(time_series_series, label='Historical Data', color='blue')
+            
+            # Add labels for each point in the historical data
+            for year, revenue in time_series_series.items():
+                plt.text(x=year, y=revenue, s=f'{revenue:.2f}', color='black', fontsize=8, ha='center', va='bottom')
+            
+            # Plot the forecasted data
+            plt.plot(forecast, label='Forecast', color='red')
+            
+            # Add labels for each point in the forecast
+            for year, revenue in forecast.items():
+                plt.text(x=year, y=revenue, s=f'{revenue:.2f}', color='red', fontsize=8, ha='center', va='bottom')
+            
+            # Title, labels, and grid
+            plt.title('SARIMA Model - Total Revenue Income Forecast', fontsize=14)
+            plt.xlabel('Year', fontsize=12)
+            plt.ylabel('Revenue (in millions)', fontsize=12)
+            plt.legend()
+            plt.grid(True, linestyle='--', alpha=0.6)
+            
+            # Show the plot
+            plt.show()
+                </code></pre>
+            
+                <h4>K-Means Clustering</h4>
+                <pre><code>
+            # Finding the optimal number of clusters (Elbow Method)
+            # Import necessary libraries
+            import pandas as pd
+            import matplotlib.pyplot as plt
+            import seaborn as sns
+            from sklearn.preprocessing import StandardScaler
+            from sklearn.cluster import KMeans
+            
+            # Load Dataset 6 (Financial Data)
+            file_path = r"C:\Users\User\Downloads\Capstone_Project_EDU\datasets\6_Financial_Data_1.xlsx"
+            dataset_6 = pd.read_excel(file_path)
+            
+            # Print dataset columns to ensure correct column names
+            print("Dataset 6 Columns:", dataset_6.columns)
+            
+            # Define the features to use for clustering
+            features = ['Operating Revenue', 'Operating Expense', 'Net Current Assets', 
+                        'Fixed Assets', 'Debt Equity Ratio', 'Total Revenue Expenditure']
+            
+            # Check if the required features exist in the dataset
+            for feature in features:
+                if feature not in dataset_6.columns:
+                    print(f"Warning: {feature} not found in the dataset")
+            
+            # Normalize the features
+            scaler = StandardScaler()
+            data_scaled = scaler.fit_transform(dataset_6[features])
+            
+            # **Elbow Method to Find Optimal k**
+            inertia = []
+            range_k = range(2, 10)
+            for k in range_k:
+                kmeans = KMeans(n_clusters=k, random_state=42)
+                kmeans.fit(data_scaled)
+                inertia.append(kmeans.inertia_)
+            
+            # Plot Elbow Curve with labels
+            plt.figure(figsize=(10, 6))
+            plt.plot(range_k, inertia, marker='o', color='b', label='Inertia')
+            plt.title('Elbow Method for Optimal k', fontsize=14)
+            plt.xlabel('Number of Clusters (k)', fontsize=12)
+            plt.ylabel('Inertia', fontsize=12)
+            
+            # **Label each point on the Elbow Curve**
+            for i, txt in enumerate(inertia):
+                plt.text(range_k[i], inertia[i], f'{inertia[i]:.2f}', fontsize=9, color='black', ha='center', va='bottom')
+            
+            plt.grid(True, linestyle='--', alpha=0.6)
+            plt.show()
+            
+            # **K-Means with Optimal k (Assuming Optimal k=3)**
+            kmeans = KMeans(n_clusters=3, random_state=42)
+            kmeans_labels = kmeans.fit_predict(data_scaled)
+            
+            # Add cluster labels to the dataset
+            dataset_6['Cluster'] = kmeans_labels
+            
+            # **Visualizing Clusters (2D projection)**
+            plt.figure(figsize=(10, 6))
+            sns.scatterplot(
+                data=dataset_6, 
+                x='Operating Revenue', 
+                y='Operating Expense', 
+                hue='Cluster', 
+                palette='viridis', 
+                s=100, 
+                alpha=0.8
+            )
+                </code></pre>
+            
+                <h3 id="policy-recommendations">11.3 Dashboard Screenshots (Power BI / Tableau)</h3>
+                <p>Screenshots of the Power BI dashboard include the following:</p>
+                <ul>
+                    <li><strong>PBI Dashboard 1:</strong> Operational Status</li>
+                    <li><a href="https://app.powerbi.com/groups/me/reports/887b1c9b-9627-434e-84ef-7fd05d6a22d7/a0ff0b6b48c7bc030a0b?experience=power-bi" target="_blank">Click here to view the Operational Status Dashboard</a></li>
+                    <figure>
+                        <img src="Figure/PBI Operational Status dashboard.png" alt="Operational dashboard" style="width:100%; max-width:800px;">
+                        <figcaption>Figure 10: PBI Operational Status dashboard.</figcaption>
+                    </figure>
+                    <li>Key Metrics Summary: Interactive KPIs displaying cargo volumes, revenue, and profitability.</li>
+                    <li>Cargo Volume Trends: Time-series charts visualizing import/export volumes.</li>
+                    <li>Equipment Utilization Heat Map: Visualization of equipment efficiency and downtime.</li>
+                    <li>Financial Performance: Dual-axis charts for revenue and expenditure trends.</li>
+                    <li><strong>PBI Dashboard 2:</strong> Financial Status</li>
+                    <li><a href="https://app.powerbi.com/groups/me/reports/d7138e0f-e3cb-4b94-94ad-9959e6dd94d1/76895307ccbb7a97975a?experience=power-bi" target="_blank">Click here to view the Operational Status Dashboard</a></li>
+                    <figure>
+                        <img src="Figure/PBI Financial Status dashboard.png" alt="Financial dashboard" style="width:100%; max-width:800px;">
+                        <figcaption>Figure 11: PBI Financial Status dashboard.</figcaption>
+                    </figure>
+                    <li>Machine Learning Forecast: Predictive insights for future cargo handling and revenue projections.</li>
+                </ul>
+                <p>(Refer to Appendix Figures for visuals and explanations of dashboard features.)</p>
+            
+                <h3 id="Supplementary-Documents">11.4 Other Supplementary Documents</h3>
+                <ul>
+                    <li>Chittagong Port Authority Annual Reports (2018–2023)</li>
+                    <li>World Bank Port Efficiency Reports</li>
+                    <li>Detailed Tables and Statistical Summaries</li>
+                    <li>Annotated Bibliography of Machine Learning Models</li>
+                </ul>
+                <p>Supplementary documents, such as project proposal, research methodology templates, and stakeholder presentations, are provided for reference.</p>
+            </section>
+            
+            <section id="glossary">
+                <h2>Glossary of Terms and Abbreviations</h2>
+                <ul>
+                    <li><strong>ARIMA:</strong> Auto-Regressive Integrated Moving Average, a time-series forecasting model.</li>
+                    <li><strong>TEUs:</strong> Twenty-foot Equivalent Units, a measure for containerized cargo.</li>
+                    <li><strong>FODSS:</strong> Financial and Operational Decision Support System.</li>
+                    <li><strong>RMSE:</strong> Root Mean Square Error, a metric for model accuracy.</li>
+                    <li><strong>GDP:</strong> Gross Domestic Product, measuring a nation's economic performance.</li>
+                    <li><strong>POL:</strong> Petroleum, Oil, and Lubricants.</li>
+                    <li><strong>CPA:</strong> Chittagong Port Authority.</li>
+                    <li><strong>Dashboard:</strong> Interactive data visualization platform for real-time analytics.</li>
+                </ul>
+                <p>This glossary clarifies technical terms, machine learning concepts, and industry-specific jargon for readers unfamiliar with the field.</p>
+            </section>
+            
+            
+        </div>
+    </div> 
+    
+</body>
